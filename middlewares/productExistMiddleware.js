@@ -1,4 +1,4 @@
-const { getProductsbyNameModel } = require('../models/productsModel');
+const { getProductsbyNameModel, getProductsbyIdModel } = require('../models/productsModel');
 
 const productExist = async (req, res, next) => {
     const { name } = req.body; 
@@ -7,6 +7,14 @@ const productExist = async (req, res, next) => {
     next();
 };
 
+const productExistUpdate = async (req, res, next) => {
+    const { id } = req.params; 
+    const retornBDUpdate = await getProductsbyIdModel(id);
+    if (!retornBDUpdate) res.status(404).json({ message: 'Product not found' });
+    next();
+};
+
 module.exports = {
     productExist,
+    productExistUpdate,
 };

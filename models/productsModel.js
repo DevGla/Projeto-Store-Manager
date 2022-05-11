@@ -12,6 +12,18 @@ const getProductsbyIdModel = async (id) => {
     return products[0];
 };
 
+const getProductsbyIdModelUpdate = async (name, quantity, id) => {
+    const [products] = await connection
+    .execute('UPDATE products SET name=?, quantity=? WHERE id=?;', [name, quantity, id]);
+    if (products.length === 0) return null;
+    const returnUpdate = {
+        id,
+        name,
+        quantity,
+    };
+    return returnUpdate;
+};
+
 const getProductsbyNameModel = async (names) => {
     const [name] = await connection
     .execute('SELECT id, name, quantity FROM products WHERE name= ?;', [names]);
@@ -34,4 +46,5 @@ module.exports = {
     getProductsbyIdModel,
     getProductsbyNameModel,
     createProductByName,
+    getProductsbyIdModelUpdate,
 };

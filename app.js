@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const {
   getAllProducts,
   getAllProductsbyId,
-  createProductBd } = require('./controllers/productsController');
+  createProductBd, 
+  updateProduct } = require('./controllers/productsController');
 
 const { getAllSales, getAllSalesById } = require('./controllers/salesController');
 
@@ -12,7 +13,7 @@ const {
   validateProduct,
   validadeQuantitySales,
   postSales } = require('./middlewares/salesMiddlewares');
-const { productExist } = require('./middlewares/productExistMiddleware');
+const { productExist, productExistUpdate } = require('./middlewares/productExistMiddleware');
 
 const app = express();
 app.use(bodyParser.json());
@@ -24,13 +25,15 @@ app.get('/', (_request, response) => {
 
 app.get('/products', getAllProducts);
 app.get('/products/:id', getAllProductsbyId);
+app.get('/sales', getAllSales);
+app.get('/sales/:id', getAllSalesById);
+
+// Requisito 4 feito com ajuda do Aluno Jonatas Lima
 
 app.post('/products', validateName, validadeQuantity, productExist, createProductBd);
 app.post('/sales', validateProduct, validadeQuantitySales, postSales);
 
-app.get('/sales', getAllSales);
-app.get('/sales/:id', getAllSalesById);
-
+app.put('/products/:id', validateName, validadeQuantity, productExistUpdate, updateProduct);
 // não remova essa exportação, é para o avaliador funcionar
 // você pode registrar suas rotas normalmente, como o exemplo acima
 // você deve usar o arquivo index.js para executar sua aplicação 

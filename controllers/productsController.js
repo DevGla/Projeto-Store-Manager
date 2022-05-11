@@ -1,6 +1,6 @@
 const {
     allProductsModel, getProductsbyIdModel } = require('../models/productsModel');
-const { createProduct } = require('../services/procuctsService');
+const { createProduct, UpdateProductService } = require('../services/procuctsService');
 
 const getAllProducts = async (_req, res) => {
     const allProducts = await allProductsModel();
@@ -18,9 +18,9 @@ const createProductBd = async (req, res, next) => {
     try {
       const { name, quantity } = req.body;
   
-      const newUser = await createProduct(name, quantity);
+      const newProduct = await createProduct(name, quantity);
   
-      return res.status(201).json(newUser);
+      return res.status(201).json(newProduct);
     } catch (err) {
       console.log(err);
       console.log('create user:', err.message);
@@ -28,8 +28,24 @@ const createProductBd = async (req, res, next) => {
     }
   };
 
+const updateProduct = async (req, res, next) => {
+  try {
+    const { name, quantity } = req.body;
+    const { id } = req.params;
+
+    const update = await UpdateProductService(name, quantity, id);
+
+    return res.status(200).json(update);
+  } catch (err) {
+    console.log(err);
+    console.log('update user:', err.message);
+    next(err);
+  }
+};
+
 module.exports = {
     getAllProducts,
     getAllProductsbyId,
     createProductBd,
+    updateProduct,
 };

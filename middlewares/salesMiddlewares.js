@@ -1,8 +1,8 @@
 const validateProduct = (req, res, next) => {
-    console.log(req.body);
     const { productId } = req.body;
-    console.log(productId);
-    if (productId === undefined) return res.status(400).json({ message: 'é nois que tá' });  
+    if (productId === undefined) {
+        return res.status(400).json({ message: '"productId" is required' });
+}  
     next();
 };
 
