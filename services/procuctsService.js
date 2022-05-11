@@ -1,10 +1,11 @@
-/* const res = require("express/lib/response");
+const { createProductByName } = require('../models/productsModel');
 
-// try catch 
-const rapidinho = (req, res) => {
-    try {
-        
-    } catch (error) {
-        return res.status(500).json({message: error.message})
-    }
-}; */
+const createProduct = async (name, quantity) => {
+    const createProductBD = await createProductByName(name, quantity);
+
+    return createProductBD;
+};
+
+module.exports = {
+    createProduct,
+};
