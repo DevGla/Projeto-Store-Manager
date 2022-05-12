@@ -32,7 +32,7 @@ app.get('/sales/:id', getAllSalesById);
 app.post('/products', validateName, validadeQuantity, productExist, createProductBd);
 
 // Requisito 7 feito com ajuda do Aluno Jonatas Lima! Requisito da rota abaixo
-app.put('/sales', postSales);
+app.post('/sales', postSales);
 
 app.put('/sales/:id', updateSales);
 
