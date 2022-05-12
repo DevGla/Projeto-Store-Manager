@@ -1,4 +1,4 @@
-const { getSales } = require("../models/salesModel");
+const { getSales } = require('../models/salesModel');
 
 const validateProduct = (req, res, next) => {
     const { productId } = req.body;

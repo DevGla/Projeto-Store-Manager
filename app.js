@@ -7,7 +7,9 @@ const {
   updateProduct,
   deleteProduct, postSales, updateSales } = require('./controllers/productsController');
 
-const { getAllSales, getAllSalesById, salesDeleteController } = require('./controllers/salesController');
+const { getAllSales,
+  getAllSalesById,
+  salesDeleteController } = require('./controllers/salesController');
 
 const { validateName, validadeQuantity } = require('./middlewares/productsMiddlewares');
 const {
