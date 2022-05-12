@@ -12,13 +12,7 @@ const validadeQuantitySales = (req, res, next) => {
  next();
 };
 
-const postSales = (req, res) => {
-    console.log(req.body);
-    res.status(200).json({});
-};
-
 module.exports = {
     validateProduct,
     validadeQuantitySales,
-    postSales,
 };

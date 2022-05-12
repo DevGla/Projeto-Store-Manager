@@ -5,15 +5,11 @@ const {
   getAllProductsbyId,
   createProductBd, 
   updateProduct,
-  deleteProduct } = require('./controllers/productsController');
+  deleteProduct, postSales } = require('./controllers/productsController');
 
 const { getAllSales, getAllSalesById } = require('./controllers/salesController');
 
 const { validateName, validadeQuantity } = require('./middlewares/productsMiddlewares');
-const {
-  validateProduct,
-  validadeQuantitySales,
-  postSales } = require('./middlewares/salesMiddlewares');
 const {
   productExist,
   productExistUpdate,
@@ -32,10 +28,11 @@ app.get('/products/:id', getAllProductsbyId);
 app.get('/sales', getAllSales);
 app.get('/sales/:id', getAllSalesById);
 
-// Requisito 4 feito com ajuda do Aluno Jonatas Lima
-
+// Requisito 4 feito com ajuda do Aluno Jonatas Lima, Requisito da rota abaixo
 app.post('/products', validateName, validadeQuantity, productExist, createProductBd);
-app.post('/sales', validateProduct, validadeQuantitySales, postSales);
+
+// Requisito 7 feito com ajuda do Aluno Jonatas Lima! Requisito da rota abaixo
+app.post('/sales', postSales);
 
 app.put('/products/:id', validateName, validadeQuantity, productExistUpdate, updateProduct);
 
