@@ -33,8 +33,18 @@ const createSale = async (array) => {
     };
 };
 
+const updateSalesModel = async (array, saleId) => {
+    await array.forEach((sales) => connection
+    .execute('UPDATE sales_products SET quantity=? WHERE product_id=?;', [sales.quantity, saleId]));
+    return {
+        saleId,
+        itemUpdated: array,
+    };
+};
+
 module.exports = {
     allSales,
     getSalesbyId,
     createSale,
+    updateSalesModel,
 };

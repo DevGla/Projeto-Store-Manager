@@ -5,7 +5,7 @@ const {
   getAllProductsbyId,
   createProductBd, 
   updateProduct,
-  deleteProduct, postSales } = require('./controllers/productsController');
+  deleteProduct, postSales, updateSales } = require('./controllers/productsController');
 
 const { getAllSales, getAllSalesById } = require('./controllers/salesController');
 
@@ -32,7 +32,9 @@ app.get('/sales/:id', getAllSalesById);
 app.post('/products', validateName, validadeQuantity, productExist, createProductBd);
 
 // Requisito 7 feito com ajuda do Aluno Jonatas Lima! Requisito da rota abaixo
-app.post('/sales', postSales);
+app.put('/sales', postSales);
+
+app.put('/sales/:id', updateSales);
 
 app.put('/products/:id', validateName, validadeQuantity, productExistUpdate, updateProduct);
 

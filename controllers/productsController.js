@@ -4,7 +4,7 @@ const {
   createProduct,
   UpdateProductService,
   deleteService } = require('../services/procuctsService');
-const { createPostService } = require('../services/salesService');
+const { createPostService, upSalesService } = require('../services/salesService');
 
 const getAllProducts = async (_req, res) => {
     const allProducts = await allProductsModel();
@@ -64,7 +64,14 @@ const deleteProduct = async (req, res, next) => {
 const postSales = async (req, res) => {
   const reqArray = req.body;
   const postSalesReturn = await createPostService(reqArray);
-  res.status(201).json(postSalesReturn);
+  return res.status(201).json(postSalesReturn);
+};
+
+const updateSales = async (req, res) => {
+  const reqArray = req.body;
+  const { id } = req.params;
+  const upDateSales = await upSalesService(reqArray, id);
+  return res.status(200).json(upDateSales);
 };
 
 module.exports = {
@@ -74,4 +81,5 @@ module.exports = {
     updateProduct,
     deleteProduct,
     postSales,
+    updateSales,
 };
