@@ -4,7 +4,8 @@ const {
   getAllProducts,
   getAllProductsbyId,
   createProductBd, 
-  updateProduct } = require('./controllers/productsController');
+  updateProduct,
+  deleteProduct } = require('./controllers/productsController');
 
 const { getAllSales, getAllSalesById } = require('./controllers/salesController');
 
@@ -13,7 +14,10 @@ const {
   validateProduct,
   validadeQuantitySales,
   postSales } = require('./middlewares/salesMiddlewares');
-const { productExist, productExistUpdate } = require('./middlewares/productExistMiddleware');
+const {
+  productExist,
+  productExistUpdate,
+  productExistDelete } = require('./middlewares/productExistMiddleware');
 
 const app = express();
 app.use(bodyParser.json());
@@ -34,6 +38,8 @@ app.post('/products', validateName, validadeQuantity, productExist, createProduc
 app.post('/sales', validateProduct, validadeQuantitySales, postSales);
 
 app.put('/products/:id', validateName, validadeQuantity, productExistUpdate, updateProduct);
+
+app.delete('/products/:id', productExistDelete, deleteProduct);
 // não remova essa exportação, é para o avaliador funcionar
 // você pode registrar suas rotas normalmente, como o exemplo acima
 // você deve usar o arquivo index.js para executar sua aplicação 

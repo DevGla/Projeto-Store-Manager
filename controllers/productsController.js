@@ -1,6 +1,9 @@
 const {
     allProductsModel, getProductsbyIdModel } = require('../models/productsModel');
-const { createProduct, UpdateProductService } = require('../services/procuctsService');
+const {
+  createProduct,
+  UpdateProductService,
+  deleteService } = require('../services/procuctsService');
 
 const getAllProducts = async (_req, res) => {
     const allProducts = await allProductsModel();
@@ -43,9 +46,24 @@ const updateProduct = async (req, res, next) => {
   }
 };
 
+const deleteProduct = async (req, res, next) => {
+  try {
+  const { id } = req.params;
+
+  const resultDelete = await deleteService(id);
+
+  if (resultDelete) return res.status(204).end();
+} catch (err) {
+  console.log(err);
+  console.log('delete user:', err.message);
+  next(err);
+}
+};
+
 module.exports = {
     getAllProducts,
     getAllProductsbyId,
     createProductBd,
     updateProduct,
+    deleteProduct,
 };

@@ -14,7 +14,15 @@ const productExistUpdate = async (req, res, next) => {
     next();
 };
 
+const productExistDelete = async (req, res, next) => {
+    const { id } = req.params; 
+    const retornBDUpdateDelete = await getProductsbyIdModel(id);
+    if (!retornBDUpdateDelete) res.status(404).json({ message: 'Product not found' });
+    next();
+};
+
 module.exports = {
     productExist,
     productExistUpdate,
+    productExistDelete,
 };

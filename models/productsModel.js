@@ -41,10 +41,17 @@ const createProductByName = async (name, quantity) => {
     return product;
 };
 
+const deleteProductModel = async (id) => {
+    const [result] = await connection
+    .execute('DELETE products FROM products WHERE id=?;', [id]);
+    return result;
+};
+
 module.exports = {
     allProductsModel,
     getProductsbyIdModel,
     getProductsbyNameModel,
     createProductByName,
     getProductsbyIdModelUpdate,
+    deleteProductModel,
 };
