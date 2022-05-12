@@ -42,9 +42,22 @@ const updateSalesModel = async (array, saleId) => {
     };
 };
 
+const deleteSales = async (id) => {
+    const [result] = await connection
+    .execute('DELETE sales FROM sales WHERE id=?;', [id]);
+    return result;
+};
+
+const getSales = async (id) => {
+    const [result] = await connection.execute('SELECT id, date FROM sales WHERE id= ?;', [id]);
+    return result;
+};
+
 module.exports = {
     allSales,
     getSalesbyId,
     createSale,
     updateSalesModel,
+    deleteSales,
+    getSales,
 };

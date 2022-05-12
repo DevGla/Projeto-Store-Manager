@@ -1,3 +1,5 @@
+const { getSales } = require("../models/salesModel");
+
 const validateProduct = (req, res, next) => {
     const { productId } = req.body;
     if (productId === undefined) {
@@ -12,7 +14,15 @@ const validadeQuantitySales = (req, res, next) => {
  next();
 };
 
+const salesExistDelete = async (req, res, next) => {
+    const { id } = req.params; 
+    const retornBDSales = await getSales(id);
+    if (retornBDSales.length === 0) res.status(404).json({ message: 'Sale not found' });
+    next();
+};
+
 module.exports = {
     validateProduct,
     validadeQuantitySales,
+    salesExistDelete,
 };
