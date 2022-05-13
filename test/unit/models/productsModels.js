@@ -7,9 +7,6 @@ const {
     getProductsbyIdModel,
     getProductsbyIdModelUpdate
 } = require('../../../models/productsModel');
-// allproductsModel retorna id / name / quantity - array de objetos
-// getProductsIdmodel retorna  - objeto
-// getProductsbyIdModelUpdate retorn id / name / quantity - objeto
 describe('Requisito 1 - productModels', () => {
     before( async () => {
         const retorno = [[{
@@ -24,7 +21,7 @@ describe('Requisito 1 - productModels', () => {
     });
     it('verifica se a função allProductsModel retorna um array', async () => {
         const getproducts = await allProductsModel();        
-        expect(getproducts[0]).to.be.a('object');
+        expect(getproducts).to.be.a('array');
     });
     it('verifica se a função getProductsIdModel retorna um objeto com: "id, name, quantity"', async () => {
         const id = 1;
@@ -40,7 +37,6 @@ describe('Requisito 1 - productModels', () => {
         const name = 'Martelo de Thor';
         const quantity = 20;
         const updateProductById = await getProductsbyIdModelUpdate(name, quantity);
-        console.log(updateProductById);
         expect(updateProductById).to.be.includes.all.keys(
             'name',
             'quantity',
