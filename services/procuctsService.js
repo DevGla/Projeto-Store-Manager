@@ -5,12 +5,12 @@ const {
 
 const createProduct = async (name, quantity) => {
     const createProductBD = await createProductByName(name, quantity);
+    console.log(createProductBD);
     return createProductBD;
 };
 
 const UpdateProductService = async (name, quantity, id) => {
     const productToUpdate = await getProductsbyIdModelUpdate(name, quantity, id);
-    console.log(productToUpdate);
     return productToUpdate;
 };
 
