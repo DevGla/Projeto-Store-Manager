@@ -2,7 +2,6 @@ const connection = require('./connection');
 
 const allProductsModel = async () => {
     const [all] = await connection.execute('SELECT * FROM products;');
-    console.log('desgraça');
     return all;
 };
 
@@ -10,7 +9,6 @@ const getProductsbyIdModel = async (id) => {
     const [products] = await connection
     .execute('SELECT id, name, quantity FROM products WHERE id= ?;', [id]);
     if (products.length === 0) return null;
-    console.log('caralho');
     return products[0];
 };
 
