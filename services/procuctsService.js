@@ -10,6 +10,7 @@ const createProduct = async (name, quantity) => {
 
 const UpdateProductService = async (name, quantity, id) => {
     const productToUpdate = await getProductsbyIdModelUpdate(name, quantity, id);
+    console.log(productToUpdate);
     return productToUpdate;
 };
 
