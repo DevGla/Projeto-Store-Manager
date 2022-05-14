@@ -38,11 +38,10 @@ const updateSalesModel = async (array, saleId) => {
     UPDATE sales_products
     SET quantity = ?, product_id = ?
     WHERE sale_id = ? AND product_id = ? */
-    const xablau = await array.map((sales) => connection
+    await array.forEach((sales) => connection
     .execute('UPDATE sales_products SET quantity=? WHERE product_id=?;', [sales.quantity, saleId]));
-    console.log(xablau);
     return {
-        saleId: xablau.productId,
+        saleId,
         itemUpdated: array,
     };
 };

@@ -5,7 +5,6 @@ const {
 
 const createProduct = async (name, quantity) => {
     const createProductBD = await createProductByName(name, quantity);
-    console.log(createProductBD);
     return createProductBD;
 };
 

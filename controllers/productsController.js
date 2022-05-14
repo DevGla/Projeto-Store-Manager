@@ -18,7 +18,7 @@ const getAllProductsbyId = async (req, res) => {
     return res.status(200).json(productsById);
 };
 
-const createProductBd = async (req, res, next) => {
+const createProductBd = async (req, res, _next) => {
     try {
       const { name, quantity } = req.body;
   
@@ -28,11 +28,10 @@ const createProductBd = async (req, res, next) => {
     } catch (err) {
       console.log(err);
       console.log('create user:', err.message);
-      next(err);
     }
   };
 
-const updateProduct = async (req, res, next) => {
+const updateProduct = async (req, res, _next) => {
   try {
     const { name, quantity } = req.body;
     const { id } = req.params;
@@ -43,7 +42,6 @@ const updateProduct = async (req, res, next) => {
   } catch (err) {
     console.log(err);
     console.log('update user:', err.message);
-    next(err);
   }
 };
 

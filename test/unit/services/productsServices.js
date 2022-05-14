@@ -6,8 +6,6 @@ const sinon = require('sinon');
 const connection = require('../../../models/connection');
 const { createProduct, UpdateProductService, deleteService } = require('../../../services/procuctsService');
 
-
-
 describe('Requisito 1 - productService', () => {
     before( async () => {
         const retorno = [[{
