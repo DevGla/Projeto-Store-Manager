@@ -7,6 +7,7 @@ const {
     getProductsbyIdModel,
     getProductsbyIdModelUpdate
 } = require('../../../models/productsModel');
+
 describe('Requisito 1 - productModels', () => {
     before( async () => {
         const retorno = [[{
