@@ -1,13 +1,13 @@
-const sinon = require('sinon');
 const { expect } = require('chai');
+const sinon = require('sinon');
 const connection = require('../../../models/connection');
 const salesModel = require('../../../models/salesModel');
 
 describe('Camada Model - sales', () => {
   describe('Função getAllSalesModel', () => {
-      const retorno  = [
+      const retorno = [
           {
-              "saleId": 1,
+              "saleId": 2,
               "date": "2022-05-18T14:09:25.000Z",
               "productId": 1,
               "quantity": 5
@@ -27,11 +27,16 @@ describe('Camada Model - sales', () => {
       ];
     before(() => {
         sinon.stub(connection, 'execute').resolves(retorno);
-    })
-    after(() => {connection.execute.restore()})
-  });
+    });
+    after(() => connection.execute.restore())
   it('Quando a função getAllSalesModel é chamada o retorno é um array', async () => {
       const retornoFuncao = await salesModel.getAllSalesModel();
-      expect(retornoFuncao).to.be.an('array');
+      expect(retornoFuncao).to.be.includes.all.keys(
+        'saleId',
+        'date',
+        'quantity',
+        'productId',
+    );
   })
+});
 });

@@ -12,6 +12,17 @@ const getProductByIdModel = async (id) => {
     return products[0];
 };
 
+const postProductModel = async (name, quantity) => {
+    const [productBD] = await connection
+    .execute('INSERT INTO products (name, quantity) VALUES (?, ?)', [name, quantity]);
+    const product = {
+        id: productBD.insertId,
+        name,
+        quantity,
+    };
+    return product;
+};
+
 const getProductsbyIdModelUpdate = async (name, quantity, id) => {
     const [products] = await connection
     .execute('UPDATE products SET name=?, quantity=? WHERE id=?;', [name, quantity, id]);
@@ -30,17 +41,6 @@ const getProductsbyNameModel = async (names) => {
     return name[0];
 };
 
-const createProductByName = async (name, quantity) => {
-    const [productBD] = await connection
-    .execute('INSERT INTO products (name, quantity) VALUES (?, ?)', [name, quantity]);
-    const product = {
-        id: productBD.insertId,
-        name,
-        quantity,
-    };
-    return product;
-};
-
 const deleteProductModel = async (id) => {
     const [result] = await connection
     .execute('DELETE products FROM products WHERE id=?;', [id]);
@@ -51,7 +51,7 @@ module.exports = {
     getAllProductsModel,
     getProductByIdModel,
      getProductsbyNameModel,
-    createProductByName,
+     postProductModel,
     getProductsbyIdModelUpdate,
     deleteProductModel,
 };

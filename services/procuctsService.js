@@ -1,37 +1,32 @@
-const {
-    createProductByName,
-    getProductsbyIdModelUpdate,
-    deleteProductModel, 
-    getAllProductsModel, 
-    getProductByIdModel } = require('../models/productsModel');
+const productsModel = require('../models/productsModel');
 
 const getAllProductsService = async () => {
-    const allService = await getAllProductsModel();
+    const allService = await productsModel.getAllProductsModel();
     return allService;
 };
 
 const getProductByIdService = async (id) => {
-    const productsbyIdModel = await getProductByIdModel(id);
+    const productsbyIdModel = await productsModel.getProductByIdModel(id);
     return productsbyIdModel;
 };
 
-const createProduct = async (name, quantity) => {
-    const createProductBD = await createProductByName(name, quantity);
+const postProductService = async (name, quantity) => {
+    const createProductBD = await productsModel.postProductModel(name, quantity);
     return createProductBD;
 };
 
 const UpdateProductService = async (name, quantity, id) => {
-    const productToUpdate = await getProductsbyIdModelUpdate(name, quantity, id);
+    const productToUpdate = await productsModel.getProductsbyIdModelUpdate(name, quantity, id);
     return productToUpdate;
 };
 
 const deleteService = async (id) => {
-    const resultDeleteService = await deleteProductModel(id);
+    const resultDeleteService = await productsModel.deleteProductModel(id);
     return resultDeleteService;
 };
 
 module.exports = {
-    createProduct,
+    postProductService,
     UpdateProductService,
     deleteService,
     getAllProductsService,

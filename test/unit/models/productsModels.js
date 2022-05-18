@@ -26,7 +26,7 @@ describe('Camada model - Products', () => {
             sinon.stub(connection, 'execute').resolves(retorno);
         });
         after(() => connection.execute.restore())
-        it('Quando a função getAllProductsModel é chamada retorno retorna um objeto com: "id, name, quantity"', async () => {
+        it('Quando a função getAllProductsModel é chamada retorno contêm as chaves: "id, name, quantity"', async () => {
             const retornofuncao = await productModel.getAllProductsModel();
             expect(retornofuncao).to.be.includes.all.keys(
                 'id',

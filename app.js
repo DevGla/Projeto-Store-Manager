@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const {
   getAllProductsController,
   getProductById,
-  createProductBd, 
+  postProduct, 
   updateProduct,
   deleteProduct, postSales, updateSales } = require('./controllers/productsController');
 
@@ -32,7 +32,7 @@ app.get('/sales', getAllSalesController);
 app.get('/sales/:id', getAllSalesById);
 
 // Requisito 4 feito com ajuda do Aluno Jonatas Lima, Requisito da rota abaixo
-app.post('/products', validateName, validadeQuantity, productExist, createProductBd);
+app.post('/products', validateName, validadeQuantity, productExist, postProduct);
 
 // Requisito 7 feito com ajuda do Aluno Jonatas Lima! Requisito da rota abaixo
 app.post('/sales', postSales);

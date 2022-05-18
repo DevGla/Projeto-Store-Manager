@@ -1,27 +1,23 @@
-const {
-  createProduct,
-  UpdateProductService,
-  deleteService, getAllProductsService,
-  getProductByIdService } = require('../services/procuctsService');
+const productService = require('../services/procuctsService');
 const { createPostService, upSalesService } = require('../services/salesService');
 
 const getAllProductsController = async (_req, res) => {
-    const allProducts = await getAllProductsService();
+    const allProducts = await productService.getAllProductsService();
     return res.status(200).json(allProducts);
 };
 
 const getProductById = async (req, res) => {
     const { id } = req.params;
-    const productsById = await getProductByIdService(id);
+    const productsById = await productService.getProductByIdService(id);
     if (!productsById) return res.status(404).json({ message: 'Product not found' });
     return res.status(200).json(productsById);
 };
 
-const createProductBd = async (req, res, _next) => {
+const postProduct = async (req, res, _next) => {
     try {
       const { name, quantity } = req.body;
   
-      const newProduct = await createProduct(name, quantity);
+      const newProduct = await productService.postProductService(name, quantity);
   
       return res.status(201).json(newProduct);
     } catch (err) {
@@ -35,7 +31,7 @@ const updateProduct = async (req, res, _next) => {
     const { name, quantity } = req.body;
     const { id } = req.params;
 
-    const update = await UpdateProductService(name, quantity, id);
+    const update = await productService.UpdateProductService(name, quantity, id);
 
     return res.status(200).json(update);
   } catch (err) {
@@ -48,7 +44,7 @@ const deleteProduct = async (req, res, next) => {
   try {
   const { id } = req.params;
 
-  const resultDelete = await deleteService(id);
+  const resultDelete = await productService.deleteService(id);
 
   if (resultDelete) return res.status(204).end();
 } catch (err) {
@@ -74,7 +70,7 @@ const updateSales = async (req, res) => {
 module.exports = {
   getAllProductsController,
     getProductById,
-    createProductBd,
+    postProduct,
     updateProduct,
     deleteProduct,
     postSales,
