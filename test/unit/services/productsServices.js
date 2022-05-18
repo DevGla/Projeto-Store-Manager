@@ -1,46 +1,38 @@
-// createProductBD retorna um objeto com id, name, quantity recebe name, quantity
-// UpdateProductService retorna um objeto com id, name, quantity recebe name, quantity, id
-// deleteService tem que ser diferente de undefined e recebe um id
-const { expect } = require('chai');
 const sinon = require('sinon');
-const connection = require('../../../models/connection');
-const { createProduct, UpdateProductService, deleteService } = require('../../../services/procuctsService');
+const { expect } = require('chai');
 
-describe('Requisito 1 - productService', () => {
-    before( async () => {
-        const retorno = [[{
-            id: 1,
-            name: 'Traje de encolhimento',
-            quantity: 20,
-        }]];
-        sinon.stub(connection, 'execute').resolves(retorno);
-    });
-    after(async () => {
-        connection.execute.restore();
-    });
-    it('verifica se a função createProduct retorna um objeto com as chaves "id, name, quantity"', async () => {
-        const name = "Traje de encolhimento";
-        const quantity = 20;
-        const getproducts = await createProduct(name, quantity);        
-        expect(getproducts).to.be.includes.all.keys(
-            'id',
-            'name',
-            'quantity',
-        );
-    });
-    it('verifica se a função UpdateProductService retorna um objeto com as chaves "id, name, quantity"', async () => {
-        const id = 1;
-        const name = 'Traje de encolhimento';
-        const quantity = 20;
-        const getproducts = await UpdateProductService(id, name, quantity);        
-        expect(getproducts).to.be.includes.all.keys(
-            'id',
-            'name',
-            'quantity',
-        );
-    });
-    it('verifica se a função deleteService retorna aldo diferente de "undefined"', async () => {
-        const getproducts = await deleteService();        
-        expect(getproducts).to.not.be.undefined;
-    });
-});
+const productService = require('../../../services/procuctsService');
+const productModel = require('../../../models/productsModel');
+
+describe('Camada Service - Products', () => {
+    describe('Função getAllProductsService', () => {
+        const retorno = [
+            {
+                "id": 1,
+                "name": "Martelo de Thor",
+                "quantity": 10
+            },
+            {
+                "id": 2,
+                "name": "Traje de encolhimento",
+                "quantity": 20
+            },
+            {
+                "id": 3,
+                "name": "Escudo do Capitão América",
+                "quantity": 30
+            }
+        ];
+
+        before(() => {
+            sinon.stub(productModel, 'getAllProductsModel').resolves(retorno);
+        });
+        after(() => {
+            productModel.getAllProductsModel.restore();
+        });
+        it('Quando a função getAllProductsService é chamada retorna um array', async () => {
+            const retornoFuncao = await productService.getAllProductsService();
+            expect(retornoFuncao).to.be.an('array');
+        })
+    })
+})

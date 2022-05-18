@@ -1,47 +1,38 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-
 const connection = require('../../../models/connection');
-const {
-    allProductsModel,
-    getProductsbyIdModel,
-    getProductsbyIdModelUpdate
-} = require('../../../models/productsModel');
+const productModel = require('../../../models/productsModel');
 
-describe('Requisito 1 - productModels', () => {
-    before( async () => {
-        const retorno = [[{
-            id: 1,
-            name: 'Traje de encolhimento',
-            quantity: 20,
-        }]];
-        sinon.stub(connection, 'execute').resolves(retorno);
-    });
-    after(async () => {
-        connection.execute.restore();
-    });
-    it('verifica se a função allProductsModel retorna um array', async () => {
-        const getproducts = await allProductsModel();        
-        expect(getproducts).to.be.a('array');
-    });
-    it('verifica se a função getProductsIdModel retorna um objeto com: "id, name, quantity"', async () => {
-        const id = 1;
-        const getProductById = await getProductsbyIdModel(id);
-        expect(getProductById).to.be.includes.all.keys(
-            'id',
-            'name',
-            'quantity',
-        );
-    });
-    it('verifica se a função getProductsbyIdModelUpdate retorna um objeto com: "id, name, quantity"', async () => {
-        const id = 1;
-        const name = 'Martelo de Thor';
-        const quantity = 20;
-        const updateProductById = await getProductsbyIdModelUpdate(name, quantity);
-        expect(updateProductById).to.be.includes.all.keys(
-            'name',
-            'quantity',
-            'id',
-        );
-    });
+describe('Camada model - Products', () => {
+    describe('Função getAllProductsModel', () => {
+        const retorno = [
+            {
+                "id": 1,
+                "name": "Martelo de Thor",
+                "quantity": 10
+            },
+            {
+                "id": 2,
+                "name": "Traje de encolhimento",
+                "quantity": 20
+            },
+            {
+                "id": 3,
+                "name": "Escudo do Capitão América",
+                "quantity": 30
+            }
+        ];
+        before(() => {
+            sinon.stub(connection, 'execute').resolves(retorno);
+        });
+        after(() => connection.execute.restore())
+        it('Quando a função getAllProductsModel é chamada retorno retorna um objeto com: "id, name, quantity"', async () => {
+            const retornofuncao = await productModel.getAllProductsModel();
+            expect(retornofuncao).to.be.includes.all.keys(
+                'id',
+                'name',
+                'quantity',
+            );
+        })
+    })
 });

@@ -1,8 +1,10 @@
-const { allSales } = require('../models/salesModel');
-const { salesDelete, getSalesbyIdService } = require('../services/salesService');
+const {
+    salesDelete,
+    getSalesbyIdService,
+    getAllSalesService } = require('../services/salesService');
 
-const getAllSales = async (_req, res) => {
-    const sales = await allSales();
+const getAllSalesController = async (_req, res) => {
+    const sales = await getAllSalesService();
     return res.status(200).json(sales);
 };
 const getAllSalesById = async (req, res) => {
@@ -19,7 +21,7 @@ const salesDeleteController = async (req, res) => {
 };
 
 module.exports = { 
-    getAllSales,
+    getAllSalesController,
     getAllSalesById,
     salesDeleteController,
 };

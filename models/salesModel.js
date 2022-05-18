@@ -1,6 +1,6 @@
 const connection = require('./connection');
 
-const allSales = async () => {
+const getAllSalesModel = async () => {
     const [sales] = await connection
     .execute(`SELECT sale_id AS saleId, date ,product_id AS productId, quantity 
     FROM StoreManager.sales
@@ -58,7 +58,7 @@ const getSales = async (id) => {
 };
 
 module.exports = {
-    allSales,
+    getAllSalesModel,
     getSalesbyId,
     createSale,
     updateSalesModel,

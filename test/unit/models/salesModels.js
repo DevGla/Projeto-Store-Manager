@@ -1,39 +1,37 @@
-const { expect } = require('chai');
 const sinon = require('sinon');
-
+const { expect } = require('chai');
 const connection = require('../../../models/connection');
-const {allSales, getSalesbyId, getSales} = require('../../../models/salesModel');
+const salesModel = require('../../../models/salesModel');
 
-describe('Requisito 1 - salesModels', () => {
-    before( async () => {
-        const retorno = [[{
-            saleId: 1,
-            date: '2022-05-13 17:21:03',
-            quantity: 20,
-            productId: 1,
-        }]];
+describe('Camada Model - sales', () => {
+  describe('Função getAllSalesModel', () => {
+      const retorno  = [
+          {
+              "saleId": 1,
+              "date": "2022-05-18T14:09:25.000Z",
+              "productId": 1,
+              "quantity": 5
+          },
+          {
+              "saleId": 1,
+              "date": "2022-05-18T14:09:25.000Z",
+              "productId": 2,
+              "quantity": 10
+          },
+          {
+              "saleId": 2,
+              "date": "2022-05-18T14:09:25.000Z",
+              "productId": 3,
+              "quantity": 15
+          }
+      ];
+    before(() => {
         sinon.stub(connection, 'execute').resolves(retorno);
-    });
-    after(async () => {
-        connection.execute.restore();
-    });
-    it('verifica se a função allSales retorna um array', async () => {
-        const getproducts = await allSales();        
-        expect(getproducts).to.be.a('array');
-    });
-    it('verifica se a função getSalesbyId retorna um objeto com: "saleId, date, quantity, productId"', async () => {
-        const id = 1;
-        const [getProductById] = await getSalesbyId(id);
-        expect(getProductById).to.be.includes.all.keys(
-            'saleId',
-            'date',
-            'productId',
-            'quantity',
-        );
-    });
-    it('verifica se a função getSales retorna um array"', async () => {
-        const id = 1;
-        const getproducts = await getSales();   
-        expect(getproducts).to.be.a('array');
-    });
+    })
+    after(() => {connection.execute.restore()})
+  });
+  it('Quando a função getAllSalesModel é chamada o retorno é um array', async () => {
+      const retornoFuncao = await salesModel.getAllSalesModel();
+      expect(retornoFuncao).to.be.an('array');
+  })
 });

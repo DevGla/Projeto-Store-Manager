@@ -1,18 +1,18 @@
 const {
   createProduct,
   UpdateProductService,
-  deleteService, allProductsService,
-  getProductsbyIdService } = require('../services/procuctsService');
+  deleteService, getAllProductsService,
+  getProductByIdService } = require('../services/procuctsService');
 const { createPostService, upSalesService } = require('../services/salesService');
 
-const getAllProducts = async (_req, res) => {
-    const allProducts = await allProductsService();
+const getAllProductsController = async (_req, res) => {
+    const allProducts = await getAllProductsService();
     return res.status(200).json(allProducts);
 };
 
-const getAllProductsbyId = async (req, res) => {
+const getProductById = async (req, res) => {
     const { id } = req.params;
-    const productsById = await getProductsbyIdService(id);
+    const productsById = await getProductByIdService(id);
     if (!productsById) return res.status(404).json({ message: 'Product not found' });
     return res.status(200).json(productsById);
 };
@@ -72,8 +72,8 @@ const updateSales = async (req, res) => {
 };
 
 module.exports = {
-    getAllProducts,
-    getAllProductsbyId,
+  getAllProductsController,
+    getProductById,
     createProductBd,
     updateProduct,
     deleteProduct,

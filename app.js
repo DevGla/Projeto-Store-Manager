@@ -1,13 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const {
-  getAllProducts,
-  getAllProductsbyId,
+  getAllProductsController,
+  getProductById,
   createProductBd, 
   updateProduct,
   deleteProduct, postSales, updateSales } = require('./controllers/productsController');
 
-const { getAllSales,
+const { getAllSalesController,
   getAllSalesById,
   salesDeleteController } = require('./controllers/salesController');
 
@@ -26,9 +26,9 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-app.get('/products', getAllProducts);
-app.get('/products/:id', getAllProductsbyId);
-app.get('/sales', getAllSales);
+app.get('/products', getAllProductsController);
+app.get('/products/:id', getProductById);
+app.get('/sales', getAllSalesController);
 app.get('/sales/:id', getAllSalesById);
 
 // Requisito 4 feito com ajuda do Aluno Jonatas Lima, Requisito da rota abaixo
