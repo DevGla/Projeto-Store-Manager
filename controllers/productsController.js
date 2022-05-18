@@ -1,19 +1,18 @@
 const {
-    allProductsModel, getProductsbyIdModel } = require('../models/productsModel');
-const {
   createProduct,
   UpdateProductService,
-  deleteService } = require('../services/procuctsService');
+  deleteService, allProductsService,
+  getProductsbyIdService } = require('../services/procuctsService');
 const { createPostService, upSalesService } = require('../services/salesService');
 
 const getAllProducts = async (_req, res) => {
-    const allProducts = await allProductsModel();
+    const allProducts = await allProductsService();
     return res.status(200).json(allProducts);
 };
 
 const getAllProductsbyId = async (req, res) => {
     const { id } = req.params;
-    const productsById = await getProductsbyIdModel(id);
+    const productsById = await getProductsbyIdService(id);
     if (!productsById) return res.status(404).json({ message: 'Product not found' });
     return res.status(200).json(productsById);
 };

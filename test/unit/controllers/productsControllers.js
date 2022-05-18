@@ -1,65 +1,59 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
-
 const service = require('../../../services/procuctsService');
 const controller = require('../../../controllers/productsController');
+// getAllProducts que chama allProductsService - service e retorna um array
+
 describe('Requisito 1 - productController', () => {
-    const response = {};
-    const request = {};
+    const res = {};
+    const req = {};
 
     before(() => {
-        request.body = {
-            name: 'product',
-            quantity: 100,
-          }; 
-        response.status = sinon.stub().returns(response);
-        response.json = sinon.stub().returns();
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
 
-        sinon.stub(service, 'createProduct').resolves({});
+        sinon.stub(service, 'allProductsService').resolves([]);
       });
 
       after(() => {
-        service.createProduct.restore();
+        service.allProductsService.restore();
       });
 
-      it('Quando a função createProductBd é chamada o status com o código 201', async () => {
-        await controller.createProductBd(request, response);        
-        expect(response.status.calledWith(201)).to.be.equal(true);
+      it('Quando a função getAllProducts é chamada o status com o código 200', async () => {
+        await controller.getAllProducts(req, res);  
+        expect(res.status.calledWith(200)).to.be.equal(true);  
       });
-      it('Quando a função createProductBd é chamada o retorno é o metodo json contendo um objecto', async () => {
-        await controller.createProductBd(request, response);
-        expect(response.json.calledWith(sinon.match.object)).to.be.equal(true);
+      it('Quando a função getAllProducts é chamada o retorno é o metodo json contendo um Array', async () => {
+        await controller.getAllProducts(req, res);
+        expect(res.json.calledWith(sinon.match.array)).to.be.equal(true);
       })
 });
 
 describe('Requisito 1 - productController', () => {
-  const response = {};
-  const request = {};
+  const res = {};
+  const req = {};
 
   before(() => {
-      request.body = {
-        name: 'product',
-        quantity: 100,
-        }; 
-        request.params = {
+      req.body = {}; 
+        req.params = {
           id: 2,
         }
-      response.status = sinon.stub().returns(response);
-      response.json = sinon.stub().returns();
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
 
-      sinon.stub(service, 'UpdateProductService').resolves({});
+      sinon.stub(service, 'getProductsbyIdService').resolves({id: 1, name: "Martelo de Thor", quantity: 10});
     });
 
     after(() => {
-      service.UpdateProductService.restore();
+      service.getProductsbyIdService.restore();
     });
 
-    /* it('Quando a função updateProduct é chamada o status com o código 201', async () => {
-      await controller.updateProduct(request, response);        
-      expect(response.status.calledWith(201)).to.be.equal(true);
-    }); */
-    it('Quando a função updateProduct é chamada o retorno é o metodo json contendo um objecto', async () => {
-      await controller.updateProduct(request, response);
-      expect(response.json.calledWith(sinon.match.object)).to.be.equal(true);
+    it('Quando a função getAllProductsbyId é chamada o status com o código 200', async () => {
+      await controller.getAllProductsbyId(req, res);        
+      expect(res.status.calledWith(200)).to.be.equal(true);
+    });
+    it('Quando a função getAllProductsbyId é chamada o retorno é o metodo json contendo um objecto', async () => {
+      await controller.getAllProductsbyId(req, res);
+      expect(res.json.calledWith(sinon.match.object)).to.be.equal(true);
     })
 });

@@ -1,8 +1,13 @@
-const { createSale, updateSalesModel, deleteSales } = require('../models/salesModel');
+const { createSale, updateSalesModel, deleteSales, getSalesbyId } = require('../models/salesModel');
 
 const createPostService = async (array) => {
     const postSales = await createSale(array);
     return postSales;
+};
+
+const getSalesbyIdService = async (id) => {
+    const salesById = await getSalesbyId(id);
+    return salesById;
 };
 
 const upSalesService = async (array, id) => {
@@ -19,4 +24,5 @@ module.exports = {
     createPostService,
     upSalesService,
     salesDelete,
+    getSalesbyIdService,
 };

@@ -16,7 +16,7 @@ describe('Requisito 1 - salesService', () => {
         connection.execute.restore();
     });
     /* it('verifica se a função createPostService retorna um objeto com as chaves "id, name, quantity"', async () => {
-        // etirna um objeto com a chave saleId e um objeto como segunda chave itemsSold e recebe um array  
+        // retorna um objeto com a chave saleId e um objeto como segunda chave itemsSold e recebe um array  
         const array = [];
         const getproducts = await createPostService(array);  
         console.log(getproducts);      
